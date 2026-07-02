@@ -1,0 +1,64 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Daily",
+  "version": "1.5.0",
+  "identifier": "com.daily.restructured",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Daily",
+        "width": 400,
+        "height": 720,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": false,
+        "transparent": true,
+        "skipTaskbar": true,
+        "alwaysOnTop": false,
+        "visible": false,
+        "windowEffects": {
+          "effects": [
+            "acrylic"
+          ],
+          "state": "active"
+        }
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' asset: https://asset.localhost data:; connect-src 'self' ipc: http://ipc.localhost"
+    },
+    "trayIcon": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDFFQ0EzNUQ0MzhBNzIzNDEKUldSQkk2YzQxRFhLSHBScEtzVDdLa1kxK3BVeXdrbG03enJtcEJSeEhyemU4OXJ3ak85K1M0NUMK",
+      "endpoints": [
+        "https://raw.githubusercontent.com/REDrighthand05/daily-restructured/main/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

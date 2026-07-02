@@ -1,0 +1,9 @@
+pub mod settings_cmd;
+pub mod notes_cmd;
+pub mod tags_cmd;
+pub mod markdown_cmd;
+pub mod export_cmd;
+pub mod clipboard_cmd;
+pub mod search_cmd;
+pub mod backup_cmd;
+pub mod diagnostics_cmd;

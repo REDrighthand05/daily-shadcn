@@ -1,0 +1,11 @@
+﻿{
+    "platforms":  {
+                      "windows-x86_64":  {
+                                             "signature":  "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSQkk2YzQxRFhLSHVacVZxK3duOUs2eHEyL0lzOTJEUkhmMS9mNGFpRTZvK3ZYVWRiVlNRNHJiazBiajZkNmhHWDBCK2M5cDBXOUFqRnJWc3EvN08vV2h4dlR4VExCd0FBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgzMDIxNTE5CWZpbGU6RGFpbHlfMS41LjBfeDY0X2VuLVVTLm1zaQpoQXhlbFMvMWkrNm5YcmljYVVwWU5na0t3RE5PT3E3RHZLaWdOeVRNeW9IWGY2T0dFSTRxbWNzOS8zVmxjVnlNVHc5RGV2ZVRDN2VRSlRrSWwzc2dEZz09Cg==",
+                                             "url":  "https://github.com/REDrighthand05/daily-restructured/releases/download/v1.6.0/Daily_1.6.0_x64_en-US.msi"
+                                         }
+                  },
+    "pub_date":  "2026-07-03T03:45:32.016Z",
+    "version":  "1.6.0",
+    "notes":  "v1.6.0 - UI Overhaul"
+}

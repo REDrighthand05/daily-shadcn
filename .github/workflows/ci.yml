@@ -1,0 +1,26 @@
+# 瀵?frontend-only PR 鐨勫墠绔眰 CI 楠岃瘉
+# 涓嶇紪璇?Rust锛屽彧楠岃瘉 TypeScript銆丩int 鍜?Vite 鏋勫缓
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci --legacy-peer-deps
+
+      - run: npx tsc -b
+
+      # CLARIFICATION: 鐢ㄦ埛鎸囧畾 "npm run lint (oxlint)"锛屼絾 lint 鑴氭湰鍚嶇О鍦ㄤ笉鍚岄」鐩彲鑳戒负 lint 鎴?oxlint銆?      # 杩欓噷鎸?package.json 涓?scripts.lint 鐨勭害瀹氭墽琛?npm run lint锛岄鏈熷簳灞備娇鐢?oxlint銆?      - run: npm run lint
+
+      - run: npx vite build
