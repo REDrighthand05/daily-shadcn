@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+﻿import { useTranslation } from "react-i18next";
 import { useAppStore } from "../../stores/appStore";
 
 const LANGUAGES = [
@@ -16,11 +16,11 @@ export default function LanguagePicker() {
   };
 
   return (
-    <div className="settings-options">
+    <div className="flex gap-1">
       {LANGUAGES.map((lang) => (
         <button
           key={lang.code}
-          className={`settings-option ${settings.language === lang.code ? "active" : ""}`}
+          className={lex flex-col items-center gap-1 px-3.5 py-1.5 rounded-lg border border-border text-[11px] text-muted-foreground transition-all hover:bg-accent }
           onClick={() => handleChange(lang.code)}
         >
           <span>{lang.label}</span>

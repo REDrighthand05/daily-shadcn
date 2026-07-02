@@ -13,6 +13,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [1.1.0] - 2026-07-03
+
+### Changed
+
+- Full UI migration to **shadcn/ui** component library
+- Shell.tsx: Tailwind v3 utility classes + cn() pattern
+- TitleBar.tsx: shadcn Button with Tailwind layout
+- CollapsibleSection.tsx: custom component with Tailwind transitions
+- All remaining components: shadcn Button, Card, Input, Dialog, Badge, Switch, Checkbox
+- Global.css: Tailwind v3 directives + CSS variables for dark theme
+- vite.config.ts: @tailwindcss/vite removed, postcss for v3
+- tsconfig.app.json: path aliases for @/
+- main.tsx: global.css import
+
+### Added
+
+- tailwindcss v3, postcss, autoprefixer
+- shadcn/ui components: button, card, input, dialog, dropdown-menu, badge, sheet, separator, switch, checkbox, scroll-area, tooltip, sonner
+- @/lib/utils.ts with cn() helper
+- components.json shadcn config
 ## [1.0.0] - 2026-07-03
 
 ### Added
@@ -35,3 +55,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - System tray icon with Show / Settings / Quit context menu
+

@@ -59,11 +59,11 @@ export default function ClipboardList() {
   });
 
   return (
-    <div className="clipboard-panel">
-      <div className="clipboard-header">
-        <span className="clipboard-count">{filtered.length}</span>
+    <div className="flex flex-col h-full">
+      <div className="flex items-center justify-between px-3 py-2 text-xs text-muted-foreground border-b border-border">
+        <span className="text-[11px]">{filtered.length}</span>
         <button
-          className="clipboard-clear-btn"
+          className="bg-transparent border border-border rounded-md px-2 py-0.5 text-[11px] cursor-pointer text-muted-foreground flex items-center gap-1 hover:bg-accent hover:text-destructive hover:border-destructive"
           onClick={() => { if (confirm(t("clipboard.clearConfirm"))) clearClipboardHistory(); }}
           title="Clear history"
         >
@@ -71,7 +71,7 @@ export default function ClipboardList() {
         </button>
       </div>
       <ClipboardSearch />
-      <div className="clipboard-list" ref={parentRef}>
+      <div className="flex-1 overflow-y-auto" ref={parentRef}>
         <div style={{ height: `${virtualizer.getTotalSize()}px`, width: '100%', position: 'relative' }}>
           {virtualizer.getVirtualItems().map((vItem) => {
             const entry = filtered[vItem.index];
@@ -95,3 +95,4 @@ export default function ClipboardList() {
     </div>
   );
 }
+

@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { useUIStore } from "../../stores/useUIStore";
 import { Settings, StickyNote } from "lucide-react";
@@ -15,13 +16,13 @@ export default function TitleBar() {
   return (
     <div
       data-tauri-drag-region
-      className="title-bar"
+      className="flex items-center px-4 h-[34px] min-h-[34px] border-b border-border"
     >
-      <div className="title-bar-tabs">
+      <div className="flex gap-0.5">
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            className={`title-bar-tab ${activeTab === tab.id ? "active" : ""}`}
+            className={cn("flex items-center gap-2 px-3 py-1 rounded-md text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground", activeTab === tab.id && "bg-accent text-foreground")}
             onClick={() => setActiveTab(tab.id)}
             title={tab.label}
           >
@@ -33,4 +34,6 @@ export default function TitleBar() {
     </div>
   );
 }
+
+
 

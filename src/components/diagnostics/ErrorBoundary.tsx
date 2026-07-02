@@ -17,10 +17,10 @@ export default class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="error-boundary">
-          <h2>Something went wrong</h2>
-          <p>{this.state.error?.message}</p>
-          <button onClick={() => { this.setState({ hasError: false }); }}>
+        <div className="flex flex-col items-center justify-center p-8 text-center">
+          <h2 className="text-lg font-semibold text-foreground mb-2">Something went wrong</h2>
+          <p className="text-sm text-muted-foreground mb-4">{this.state.error?.message}</p>
+          <button className="bg-primary text-primary-foreground rounded-md px-4 py-2 text-sm font-medium hover:bg-primary/90" onClick={() => { this.setState({ hasError: false }); }}>
             Reload
           </button>
         </div>
@@ -29,4 +29,3 @@ export default class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
-

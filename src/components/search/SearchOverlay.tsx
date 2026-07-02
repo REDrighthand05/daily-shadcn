@@ -64,25 +64,25 @@ export default function SearchOverlay() {
   const clipResults = globalSearchResults.filter((r) => r.source === "clipboard");
 
   return (
-    <div className="search-overlay" onClick={closeGlobalSearch}>
-      <div className="search-overlay-panel" onClick={(e) => e.stopPropagation()}>
-        <div className="search-overlay-input-wrap">
-          <Search size={16} className="search-overlay-icon" />
+    <div className="fixed inset-0 bg-black/40 z-[1000] flex justify-center pt-[60px]" onClick={closeGlobalSearch}>
+      <div className="w-[90%] max-w-[400px] max-h-[80vh] bg-background rounded-xl border border-border shadow-lg flex flex-col overflow-hidden" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center gap-3 px-3 py-2 border-b border-border">
+          <Search size={16} className="text-muted-foreground shrink-0" />
           <input
             ref={inputRef}
-            className="search-overlay-input"
+            className="flex-1 border-none bg-transparent text-sm outline-none text-foreground"
             value={globalSearchQuery}
             onChange={(e) => doSearch(e.target.value)}
             placeholder={t("search.placeholder")}
           />
-          <button className="search-overlay-close" onClick={closeGlobalSearch}>
+          <button className="bg-transparent border-none cursor-pointer text-muted-foreground p-1 flex rounded hover:bg-accent hover:text-foreground" onClick={closeGlobalSearch}>
             <X size={16} />
           </button>
         </div>
-        <div className="search-overlay-results">
+        <div className="overflow-y-auto max-h-[60vh] py-1">
           {noteResults.length > 0 && (
-            <div className="search-group">
-              <div className="search-group-title">
+            <div className="py-1">
+              <div className="flex items-center gap-1 px-3 py-1 text-[11px] text-muted-foreground uppercase tracking-wider">
                 <FileText size={12} /> {t("search.notes", { count: noteResults.length })}
               </div>
               {noteResults.map((r, i) => (
@@ -91,15 +91,15 @@ export default function SearchOverlay() {
                   className={`search-result-item ${selectedIdx === i ? "selected" : ""}`}
                   onClick={() => navigate(r)}
                 >
-                  <div className="search-result-title">{r.title || "Untitled"}</div>
-                  <div className="search-result-snippet">{r.snippet}</div>
+                  <div className="text-[13px] font-medium text-foreground mb-0.5 overflow-hidden text-ellipsis whitespace-nowrap">{r.title || "Untitled"}</div>
+                  <div className="text-[11px] text-muted-foreground overflow-hidden text-ellipsis whitespace-nowrap">{r.snippet}</div>
                 </div>
               ))}
             </div>
           )}
           {clipResults.length > 0 && (
-            <div className="search-group">
-              <div className="search-group-title">
+            <div className="py-1">
+              <div className="flex items-center gap-1 px-3 py-1 text-[11px] text-muted-foreground uppercase tracking-wider">
                 <Clipboard size={12} /> {t("search.clipboard", { count: clipResults.length })}
               </div>
               {clipResults.map((r, i) => (
@@ -108,14 +108,14 @@ export default function SearchOverlay() {
                   className={`search-result-item ${selectedIdx === noteResults.length + i ? "selected" : ""}`}
                   onClick={() => navigate(r)}
                 >
-                  <div className="search-result-title">{r.title}</div>
-                  <div className="search-result-snippet">{r.snippet}</div>
+                  <div className="text-[13px] font-medium text-foreground mb-0.5 overflow-hidden text-ellipsis whitespace-nowrap">{r.title}</div>
+                  <div className="text-[11px] text-muted-foreground overflow-hidden text-ellipsis whitespace-nowrap">{r.snippet}</div>
                 </div>
               ))}
             </div>
           )}
           {globalSearchQuery.length >= 2 && globalSearchResults.length === 0 && (
-            <div className="search-no-results">{t("search.noResults")}</div>
+            <div className="p-5 text-center text-muted-foreground text-[13px]">{t("search.noResults")}</div>
           )}
         </div>
       </div>

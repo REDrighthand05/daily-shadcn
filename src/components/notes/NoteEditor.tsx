@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppStore } from "../../stores/appStore";
@@ -31,7 +32,7 @@ export default function NoteEditor() {
 
   if (!editingNote) {
     return (
-      <div className="note-editor-empty">
+      <div className="flex-1 flex items-center justify-center text-muted-foreground text-[13px]">
         <p>{t("notes.selectNote")}</p>
       </div>
     );
@@ -75,23 +76,23 @@ export default function NoteEditor() {
   const noteTags = tags.filter((t) => editingNote.tags.includes(t.id));
 
   return (
-    <div className="note-editor">
-      <div className="note-editor-header">
+    <div className="flex-1 flex flex-col">
+      <div className="flex items-center gap-1 px-3 py-1 border-b border-border">
         <ExportMenu note={editingNote} />
         {noteTags.map((tag) => (
           <TagChip key={tag.id} tag={tag} onRemove={() => handleTagToggle(tag.id)} />
         ))}
-        <button className="tag-picker-toggle" onClick={() => setShowTagPicker(!showTagPicker)}>
+        <button className="bg-transparent border border-dashed border-border rounded-[10px] px-2 py-[1px] text-[11px] cursor-pointer text-muted-foreground hover:bg-accent" onClick={() => setShowTagPicker(!showTagPicker)}>
           {showTagPicker ? t("common.done") : t("tags.addTags")}
         </button>
       </div>
       {showTagPicker && <TagPicker onToggle={handleTagToggle} />}
       <EditorToolbar mode={editorMode} onModeChange={setEditorMode} onInsert={handleInsert} />
-      <div className="note-editor-body">
+      <div className="flex-1 flex overflow-hidden">
         {editorMode !== "preview" && (
           <textarea
             ref={textareaRef}
-            className={editorMode === "split" ? "split" : ""}
+            className={cn("flex-1 border-none resize-none p-2 text-[13px] leading-relaxed bg-transparent text-foreground outline-none", editorMode === "split" && "w-1/2 border-r border-border")}
             value={editingNote.content}
             onChange={(e) => handleChange(e.target.value)}
             placeholder={t("notes.startTyping")}
@@ -105,4 +106,6 @@ export default function NoteEditor() {
     </div>
   );
 }
+
+
 

@@ -1,4 +1,4 @@
-import { Palette } from "lucide-react";
+﻿import { Palette } from "lucide-react";
 
 interface Props {
   accentColor: string;
@@ -23,24 +23,25 @@ export default function ThemePicker({ accentColor, onChange }: Props) {
   };
 
   return (
-    <div className="theme-picker">
-      <div className="theme-picker-presets">
+    <div className="flex items-center gap-3 my-1">
+      <div className="flex gap-1">
         {PRESETS.map((color) => (
           <button
             key={color}
-            className={`theme-swatch ${accentColor === color ? "active" : ""}`}
+            className={w-6 h-6 rounded-full border-2 cursor-pointer transition-transform hover:scale-110 }
             style={{ backgroundColor: color }}
             onClick={() => handleChange(color)}
             title={color}
           />
         ))}
       </div>
-      <label className="theme-picker-custom">
+      <label className="flex items-center gap-1 cursor-pointer text-muted-foreground text-[11px]">
         <Palette size={14} />
         <input
           type="color"
           value={accentColor}
           onChange={(e) => handleChange(e.target.value)}
+          className="w-6 h-6 border-none bg-transparent cursor-pointer p-0"
         />
       </label>
     </div>

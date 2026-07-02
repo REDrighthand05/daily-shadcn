@@ -8,6 +8,7 @@ import { Plus, Pin, Trash2, Archive, ChevronUp, ChevronDown } from "lucide-react
 import CategoryFilter from "../tags/CategoryFilter";
 import ArchiveToggle from "./ArchiveToggle";
 import TrashBin from "./TrashBin";
+import { cn } from "@/lib/utils";
 
 function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
@@ -23,12 +24,11 @@ export default function NoteList() {
   const { searchQuery, selectedTagId, showArchived, showDeleted } = useUIStore();
   const parentRef = useRef<HTMLDivElement>(null);
 
-  // If trash view is active, show TrashBin instead
   if (showDeleted) {
     return (
-      <div className="note-list">
+      <div className="w-[140px] min-w-[100px] border-r border-border flex flex-col overflow-hidden">
         <ArchiveToggle />
-        <div className="note-list-body">
+        <div className="flex-1 overflow-hidden">
           <TrashBin />
         </div>
       </div>
@@ -75,22 +75,22 @@ export default function NoteList() {
   };
 
   return (
-    <div className="note-list">
+    <div className="w-[140px] min-w-[100px] border-r border-border flex flex-col overflow-hidden">
       <ArchiveToggle />
-      <div className="note-list-header">
-        <span className="note-count">{showArchived ? t("notes.archivedCount", { count: sorted.length }) : t("notes.count", { count: sorted.length })}</span>
-        <button className="note-new-btn" onClick={handleNew} title={t("notes.newNote")}>
+      <div className="flex items-center justify-between px-3 py-1.5 border-b border-border">
+        <span className="text-[11px] text-muted-foreground">{showArchived ? t("notes.archivedCount", { count: sorted.length }) : t("notes.count", { count: sorted.length })}</span>
+        <button className="flex items-center justify-center w-[26px] h-[26px] rounded-md text-muted-foreground hover:bg-accent hover:text-foreground" onClick={handleNew} title={t("notes.newNote")}>
           <Plus size={16} />
         </button>
       </div>
       <CategoryFilter />
-      <div className="note-list-items" ref={parentRef}>
-        <div style={{ height: `${virtualizer.getTotalSize()}px`, width: '100%', position: 'relative' }}>
+      <div className="flex-1 overflow-y-auto" ref={parentRef}>
+        <div style={{ height: `${virtualizer.getTotalSize()}px`, width: "100%", position: "relative" }}>
           {virtualizer.getVirtualItems().map((vItem) => {
             const note = sorted[vItem.index];
             return (
               <div key={note.id} style={{
-                position: 'absolute', top: 0, left: 0, width: '100%',
+                position: "absolute", top: 0, left: 0, width: "100%",
                 height: `${vItem.size}px`,
                 transform: `translateY(${vItem.start}px)`
               }}>
@@ -128,23 +128,24 @@ function NoteListItem({
   const text = line.slice(0, 60) || t("notes.empty");
 
   return (
-    <div className={`note-item ${note.pinned ? "pinned" : ""} ${note.archived ? "archived" : ""}`}>
-      <div className="note-item-move">
-        <button className="note-item-move-btn" onClick={() => onMove(note.id, "up")} title="Move up"><ChevronUp size={10} /></button>
-        <button className="note-item-move-btn" onClick={() => onMove(note.id, "down")} title="Move down"><ChevronDown size={10} /></button>
+    <div className={`group border-b border-border flex items-center ${note.archived ? "opacity-60" : ""}`}>
+      <div className="flex flex-col items-center gap-0 opacity-0 transition-opacity group-hover:opacity-100 px-0.5">
+        <button className="bg-transparent border-none p-[1px_2px] cursor-pointer text-muted-foreground flex leading-none hover:text-foreground" onClick={() => onMove(note.id, "up")} title="Move up"><ChevronUp size={10} /></button>
+        <button className="bg-transparent border-none p-[1px_2px] cursor-pointer text-muted-foreground flex leading-none hover:text-foreground" onClick={() => onMove(note.id, "down")} title="Move down"><ChevronDown size={10} /></button>
       </div>
-      <button className="note-item-main" onClick={togglePin}>
-        <Pin size={12} className={`pin-icon ${note.pinned ? "pinned" : ""}`} />
-        <span className="note-item-preview">{text}</span>
+      <button className="flex-1 flex items-center gap-1 px-3 py-2 text-left min-w-0 hover:bg-accent" onClick={togglePin}>
+        <Pin size={12} className={cn("shrink-0 text-muted-foreground", note.pinned && "text-primary")} />
+        <span className="text-xs whitespace-nowrap overflow-hidden text-ellipsis text-muted-foreground">{text}</span>
       </button>
-      <div className="note-item-actions">
-        <button className="note-item-action-btn" onClick={() => onDelete(note.id)} title="Move to trash">
+      <div className="flex gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
+        <button className="bg-transparent border-none p-[3px] rounded cursor-pointer text-muted-foreground flex hover:bg-accent hover:text-foreground" onClick={() => onDelete(note.id)} title="Move to trash">
           <Trash2 size={12} />
         </button>
-        <button className="note-item-action-btn" onClick={() => onArchive(note.id)} title={showArchived ? "Unarchive" : "Archive"}>
+        <button className="bg-transparent border-none p-[3px] rounded cursor-pointer text-muted-foreground flex hover:bg-accent hover:text-foreground" onClick={() => onArchive(note.id)} title={showArchived ? "Unarchive" : "Archive"}>
           <Archive size={12} />
         </button>
       </div>
     </div>
   );
 }
+

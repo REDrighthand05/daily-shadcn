@@ -1,4 +1,4 @@
-﻿import { useAppStore } from "../../stores/appStore";
+import { useAppStore } from "../../stores/appStore";
 import type { AppSettings } from "../../types";
 import { Palette, AlignLeft, AlignRight } from "lucide-react";
 import ThemePicker from "../theme/ThemePicker";
@@ -45,7 +45,7 @@ export default function SettingsPage() {
   ];
 
   return (
-    <div className="settings-page">
+    <div className="flex-1 overflow-y-auto p-5">
       <h2>Settings</h2>
 
       <CollapsibleSection title={t("settings.appearance")}>
@@ -55,7 +55,7 @@ export default function SettingsPage() {
           onChange={(color) => updateSettings({ accent_color: color })}
         />
 
-        <label className="settings-toggle">
+        <label className="flex items-center gap-1 text-[13px] cursor-pointer">
           <input
             type="checkbox"
             checked={settings.animations_enabled}
@@ -69,7 +69,7 @@ export default function SettingsPage() {
 
       <CollapsibleSection title={t("settings.panel")}>
         <h3>{t("settings.position")}</h3>
-        <div className="settings-options">
+        <div className="flex gap-1">
           {positions.map((p) => (
             <button
               key={p.value}
@@ -82,7 +82,7 @@ export default function SettingsPage() {
           ))}
         </div>
         <h3>{t("settings.opacity")}</h3>
-        <div className="settings-slider">
+        <div className="flex items-center gap-3">
           <input
             type="range"
             min="30"
@@ -98,7 +98,7 @@ export default function SettingsPage() {
 
       <section>
         <h3>{t("settings.autostart")}</h3>
-        <label className="settings-toggle">
+        <label className="flex items-center gap-1 text-[13px] cursor-pointer">
           <input
             type="checkbox"
             checked={settings.autostart}
@@ -111,7 +111,7 @@ export default function SettingsPage() {
       <section>
         <h3>{t("settings.shortcut")}</h3>
         <input
-          className="settings-shortcut"
+          className="w-[160px] cursor-default bg-background border border-border rounded-md px-3 py-1 text-sm text-foreground"
           type="text"
           value={settings.shortcut_toggle}
           readOnly
@@ -120,21 +120,23 @@ export default function SettingsPage() {
       </section>
           <section>
         <h3>Diagnostics</h3>
-        <div className="diagnostics-info">
+        <div className="text-sm text-muted-foreground space-y-1">
           <p>OS: {sysInfo?.os} ({sysInfo?.arch})</p>
           <p>App: v{sysInfo?.app_version}</p>
-          <button className="settings-action-btn" onClick={handleReportIssue}>Report Issue</button>
+          <button className="bg-transparent border border-border rounded-md px-3 py-1 text-xs cursor-pointer text-muted-foreground hover:bg-accent hover:text-foreground" onClick={handleReportIssue}>Report Issue</button>
         </div>
       </section>
 
       <section>
         <h3>Data</h3>
-        <div className="settings-actions">
-          <button className="settings-action-btn" onClick={handleExport}>Export Backup</button>
-          <button className="settings-action-btn" onClick={handleImport}>Import Backup</button>
+        <div className="flex gap-2">
+          <button className="bg-transparent border border-border rounded-md px-3 py-1 text-xs cursor-pointer text-muted-foreground hover:bg-accent hover:text-foreground" onClick={handleExport}>Export Backup</button>
+          <button className="bg-transparent border border-border rounded-md px-3 py-1 text-xs cursor-pointer text-muted-foreground hover:bg-accent hover:text-foreground" onClick={handleImport}>Import Backup</button>
           <button className="settings-action-btn danger" onClick={handleReset}>Factory Reset</button>
         </div>
       </section>
     </div>
   );
 }
+
+

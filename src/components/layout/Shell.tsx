@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import TitleBar from "./TitleBar";
 import NoteList from "../notes/NoteList";
 import NoteEditor from "../notes/NoteEditor";
@@ -44,35 +45,35 @@ export default function Shell() {
   }, []);
 
   return (
-    <div className="app-container">
+    <div className="flex flex-col h-screen overflow-hidden">
       <React.Suspense fallback={null}><SearchOverlay /></React.Suspense>
       <TitleBar />
       {activeTab === "notes" && (
-        <div className="notes-panel">
+        <div className="flex flex-col flex-1 overflow-hidden">
           <NoteSearch />
-          <div className="notes-body">
+          <div className="flex flex-1 overflow-hidden">
             <NoteList />
             <NoteEditor />
           </div>
         </div>
       )}
       {activeTab === "clipboard" && <ClipboardList />}
-      {activeTab === "settings" && <React.Suspense fallback={<div className="loading-panel">Loading...</div>}><SettingsPage /></React.Suspense>}
-      <div className="tab-bar">
+      {activeTab === "settings" && <React.Suspense fallback={<div className="flex items-center justify-center p-4 text-muted-foreground">Loading...</div>}><SettingsPage /></React.Suspense>}
+      <div className="flex border-t border-border bg-background shrink-0">
         <button
-          className={`tab-bar-btn ${activeTab === "notes" ? "active" : ""}`}
+          className={cn("flex-1 flex items-center justify-center gap-1 border-t-2 border-transparent px-2 pb-2 pt-1.5 text-[11px] cursor-pointer text-muted-foreground transition-colors hover:text-foreground hover:bg-accent", activeTab === "notes" && "text-primary border-t-primary")}
           onClick={() => setActiveTab("notes")}
         >
           <FileText size={14} /> {t("tabs.notes")}
         </button>
         <button
-          className={`tab-bar-btn ${activeTab === "clipboard" ? "active" : ""}`}
+          className={cn("flex-1 flex items-center justify-center gap-1 border-t-2 border-transparent px-2 pb-2 pt-1.5 text-[11px] cursor-pointer text-muted-foreground transition-colors hover:text-foreground hover:bg-accent", activeTab === "clipboard" && "text-primary border-t-primary")}
           onClick={() => setActiveTab("clipboard")}
         >
           <Clipboard size={14} /> {t("tabs.clipboard")}
         </button>
         <button
-          className={`tab-bar-btn ${activeTab === "settings" ? "active" : ""}`}
+          className={cn("flex-1 flex items-center justify-center gap-1 border-t-2 border-transparent px-2 pb-2 pt-1.5 text-[11px] cursor-pointer text-muted-foreground transition-colors hover:text-foreground hover:bg-accent", activeTab === "settings" && "text-primary border-t-primary")}
           onClick={() => setActiveTab("settings")}
         >
           <Settings size={14} /> {t("tabs.settings")}
@@ -81,3 +82,6 @@ export default function Shell() {
     </div>
   );
 }
+
+
+

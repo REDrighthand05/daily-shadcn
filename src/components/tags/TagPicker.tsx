@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import TagChip from "./TagChip";
 import { useAppStore } from "../../stores/appStore";
 import type { Tag } from "../../types";
@@ -27,8 +27,8 @@ export default function TagPicker({ onToggle }: Props) {
   };
 
   return (
-    <div className="tag-picker">
-      <div className="tag-picker-chips">
+    <div className="px-3 py-1.5 border-b border-border bg-background">
+      <div className="flex flex-wrap gap-[3px] items-center">
         {tags.map((tag) => (
           <TagChip
             key={tag.id}
@@ -37,18 +37,19 @@ export default function TagPicker({ onToggle }: Props) {
             size="sm"
           />
         ))}
-        <button className="tag-add-btn" onClick={() => setShowAdd(!showAdd)} title="New tag">
+        <button className="bg-transparent border border-dashed border-border rounded-lg w-5 h-5 flex items-center justify-center cursor-pointer text-muted-foreground p-0 hover:bg-accent" onClick={() => setShowAdd(!showAdd)} title="New tag">
           <Plus size={12} />
         </button>
       </div>
       {showAdd && (
-        <div className="tag-picker-input">
+        <div className="mt-1">
           <input
             autoFocus
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter") handleAdd(); }}
             placeholder="Tag name..."
+            className="w-full box-border px-1.5 py-1.5 border border-border rounded-md text-xs bg-muted text-foreground outline-none"
           />
         </div>
       )}

@@ -14,9 +14,9 @@ export default function CategoryFilter() {
   }));
 
   return (
-    <div className="category-filter">
+    <div className="flex flex-wrap gap-1 px-3 py-1.5 border-b border-border">
       <button
-        className={`cat-filter-item ${!selectedTagId ? "active" : ""}`}
+        className={`inline-flex items-center gap-1 bg-transparent border border-border rounded-[10px] px-2 py-[1px] text-[11px] cursor-pointer text-muted-foreground transition-all ${!selectedTagId ? "bg-accent text-white border-accent" : ""} ${!selectedTagId ? "" : "hover:bg-accent"}`}
         onClick={() => setSelectedTagId(null)}
       >
         {t("notes.all")} ({notes.length})
@@ -26,12 +26,12 @@ export default function CategoryFilter() {
         .map((tag) => (
           <button
             key={tag.id}
-            className={`cat-filter-item ${selectedTagId === tag.id ? "active" : ""}`}
+            className={`inline-flex items-center gap-1 bg-transparent border border-border rounded-[10px] px-2 py-[1px] text-[11px] cursor-pointer text-muted-foreground transition-all ${selectedTagId === tag.id ? "bg-accent text-white border-accent" : "hover:bg-accent"}`}
             onClick={() => setSelectedTagId(tag.id === selectedTagId ? null : tag.id)}
           >
-            <span className="tag-dot-sm" style={{ backgroundColor: tag.color || "#888" }} />
+            <span className="w-[5px] h-[5px] rounded-full inline-block shrink-0" style={{ backgroundColor: tag.color || "#888" }} />
             {tag.name} ({tagCounts.get(tag.id) || 0})
-            {selectedTagId === tag.id && <X size={10} className="cat-filter-clear" />}
+            {selectedTagId === tag.id && <X size={10} className="align-middle" />}
           </button>
         ))}
     </div>

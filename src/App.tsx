@@ -4,7 +4,7 @@ import { useUIStore } from "./stores/useUIStore";
 import { useEffect } from "react";
 import * as ipc from "./bridge/ipc";
 import "./styles/global.css";
-import "./styles/components.css";
+// components.css deleted — shadcn/ui + Tailwind handle styling
 
 export default function App() {
   const { settings, loadAll } = useAppStore();

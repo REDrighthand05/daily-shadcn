@@ -1,4 +1,4 @@
-import type { Note } from "../../types";
+﻿import type { Note } from "../../types";
 import type { ExportFormat } from "../../types";
 import { writeFile } from "../../bridge/ipc";
 import { Download } from "lucide-react";
@@ -19,7 +19,7 @@ export default function ExportMenu({ note }: Props) {
     try {
       const path = await save({
         filters: [{ name: format === "markdown" ? "Markdown" : "Text", extensions: [ext] }],
-        defaultPath: `${defaultName}.${ext}`,
+        defaultPath: ${defaultName}.,
       });
       if (path) {
         await writeFile(path, note.content);
@@ -30,14 +30,18 @@ export default function ExportMenu({ note }: Props) {
   };
 
   return (
-    <div className="export-menu">
-      <button className="export-btn" onClick={() => setOpen(!open)} title="Export note">
+    <div className="relative inline-block">
+      <button className="bg-transparent border-none p-1 rounded cursor-pointer text-muted-foreground flex items-center hover:bg-accent hover:text-foreground" onClick={() => setOpen(!open)} title="Export note">
         <Download size={14} />
       </button>
       {open && (
-        <div className="export-dropdown">
-          <button onClick={() => handleExport("markdown")}>Export as Markdown</button>
-          <button onClick={() => handleExport("text")}>Export as Text</button>
+        <div className="absolute top-full right-0 mt-1 z-50 min-w-[160px] rounded-md border bg-popover p-1 text-popover-foreground shadow-md">
+          <button className="relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground" onClick={() => handleExport("markdown")}>
+            Export as Markdown
+          </button>
+          <button className="relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground" onClick={() => handleExport("text")}>
+            Export as Text
+          </button>
         </div>
       )}
     </div>
