@@ -1,6 +1,6 @@
 [package]
-name = "daily-restructured"
-version = "1.5.0"
+name = "daily-shadcn"
+version = "1.1.0"
 description = "A lightweight desktop side-panel utility"
 authors = ["you"]
 license = ""

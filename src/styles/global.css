@@ -1,31 +1,6 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  :root {
-    --background: 0 0% 3%;
-    --foreground: 0 0% 95%;
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 95%;
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 226 100% 71%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 9%;
-    --secondary-foreground: 0 0% 95%;
-    --muted: 0 0% 9%;
-    --muted-foreground: 0 0% 60%;
-    --accent: 0 0% 9%;
-    --accent-foreground: 0 0% 95%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 95%;
-    --border: 0 0% 12%;
-    --input: 0 0% 12%;
-    --ring: 226 100% 71%;
-    --radius: 0.5rem;
-  }
-}
 
 html, body, #root {
   height: 100%;
@@ -34,14 +9,37 @@ html, body, #root {
   user-select: none;
 }
 
-body {
-  background-color: transparent;
-  color: hsl(var(--foreground));
-}
-
+/* 
+ * Acrylic 双层背景策略:
+ * 1. 半透明安全色层 — 确保在任何壁纸上文字对比度 ≥ 4.5:1
+ * 2. backdrop-filter 仅作为 CSS 层模糊降级; 
+ *    真正的 Acrylic 由 OS (DWM) 通过 tauri.conf.json 的 windowEffects 控制
+ */
 #root {
-  background-color: hsl(0 0% 3% / var(--window-alpha, 0.65));
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background-color: hsl(240 20% 4% / var(--window-alpha, 0.7));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
+/* 安全色层叠加: 确保深色壁纸上文字可读 */
+#root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 高可读性区域 (编辑器、笔记列表) 使用更高不透明度 */
+.surface-elevated {
+  background-color: hsla(240 20% 4% / calc(var(--window-alpha, 0.7) + 0.15));
+}
+
+.surface-dialog {
+  background-color: hsla(240 20% 4% / calc(var(--window-alpha, 0.7) + 0.3));
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }

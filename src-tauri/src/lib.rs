@@ -1,4 +1,4 @@
-﻿use tauri::{
+use tauri::{
     menu::{MenuBuilder, MenuItemBuilder},
     tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
     Emitter, Manager, WindowEvent,
@@ -108,12 +108,8 @@ pub fn run() {
 
             if let Some(window) = app.get_webview_window("main") {
                 position_panel(&window, &settings);
-                let alpha = (settings.opacity * 255.0) as u8;
-                if settings.theme == "light" {
-                    let _ = window.set_background_color(Some((255, 255, 255, alpha).into()));
-                } else {
-                    let _ = window.set_background_color(Some((0, 0, 0, alpha).into()));
-                }
+                // Acrylic: opacity controlled via CSS --window-alpha variable, not via set_background_color
+                // Removed set_background_color — it blocks OS-level Acrylic. Opacity is CSS- only via --window-alpha.
 
                 let handle = app.handle().clone();
                 let last_focus_lost = Arc::new(Mutex::new(None::<Instant>));

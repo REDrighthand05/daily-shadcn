@@ -1,11 +1,11 @@
-﻿use tauri::WebviewWindow;
+use tauri::WebviewWindow;
 use crate::settings::SettingsStore;
 
 #[tauri::command]
 pub fn set_window_opacity(
     window: WebviewWindow,
     store: tauri::State<SettingsStore>,
-    theme: String,
+    _theme: String,
     opacity: f64,
 ) -> Result<(), String> {
     let clamped = opacity.clamp(0.3, 1.0);
