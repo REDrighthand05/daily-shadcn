@@ -1,171 +1,119 @@
 <div align="center">
-  <h1>Daily</h1>
+  <h1>✦ Daily shadcn ✦</h1>
+  <p><strong>A desktop side-panel productivity experiment.<br>Built with shadcn/ui, Tauri v2 &mdash; now archived.</strong></p>
+
   <p>
-    <strong>A lightweight desktop side-panel utility for your daily workflow</strong>
-  </p>
-  <p>
-    <a href="https://github.com/REDrighthand05/daily-app/actions/workflows/ci.yml">
-      <img src="https://img.shields.io/github/actions/workflow/status/REDrighthand05/daily-app/ci.yml?branch=main&label=CI&logo=github" alt="CI">
-    </a>
-    <a href="https://github.com/REDrighthand05/daily-app/releases">
-      <img src="https://img.shields.io/github/v/release/REDrighthand05/daily-app?include_prereleases&label=Release&logo=tauri" alt="Release">
-    </a>
-    <a href="LICENSE">
-      <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License">
-    </a>
-    <a href="#">
-      <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react" alt="React 19">
-    </a>
-    <a href="#">
-      <img src="https://img.shields.io/badge/TypeScript-6.0-3178C6?logo=typescript" alt="TypeScript 6">
-    </a>
-    <a href="#">
-      <img src="https://img.shields.io/badge/Tauri-v2-FFC131?logo=tauri" alt="Tauri v2">
-    </a>
-    <a href="#">
-      <img src="https://img.shields.io/badge/Rust-2021-000000?logo=rust" alt="Rust 2021">
-    </a>
+    <img src="https://img.shields.io/badge/status-archived-cc2936?style=flat-square" alt="Archived">
+    <img src="https://img.shields.io/badge/version-1.2.1-4F8CFF?style=flat-square" alt="Version">
+    <img src="https://img.shields.io/badge/stack-React%2019-61dafb?style=flat-square&logo=react" alt="React">
+    <img src="https://img.shields.io/badge/stack-Tauri%20v2-ffc131?style=flat-square&logo=tauri" alt="Tauri">
+    <img src="https://img.shields.io/badge/stack-Rust-f74c00?style=flat-square&logo=rust" alt="Rust">
+    <img src="https://img.shields.io/badge/stack-HeroUI%20v2-18181B?style=flat-square" alt="HeroUI">
+    <img src="https://img.shields.io/badge/license-MIT-22c55e?style=flat-square" alt="MIT">
   </p>
 </div>
 
----
+<br>
 
-**Daily** is a polished, system-tray-hosted side panel for Windows. Press a global hotkey, and your quick notes, settings, and tools slide in from the edge of your screen. Inspired by tools like Snipaste, Notion Quick Capture, and Todoist — but focused, local, and yours.
-
-## Features
-
-- **System tray integration** — sits in your notification area. Left-click to toggle, right-click for menu.
-- **Global shortcut** — default `Alt+Space` to show/hide from anywhere.
-- **Side panel docking** — attach to the left or right screen edge, or float as a standalone window.
-- **Acrylic blur** — modern frosted-glass effect on Windows 11/10.
-- **Dark / Light / System themes** — follows your OS preference or locks to one.
-- **Quick notes** — create, edit, delete, and full-text search through your notes in real time.
-- **Opacity control** — adjust transparency from 30% to 100%.
-- **Auto-hide on blur** — click outside and the panel disappears, staying out of your way.
-- **Autostart option** — launch with Windows so it is always a keypress away.
-- **Custom title bar** — clean, frameless window with drag-to-move and window controls.
-
-## Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| `Alt+Space` | Toggle Daily panel (configurable) |
-| `Ctrl+N` | New note |
-| `Ctrl+F` | Focus search |
-| `Esc` | Close panel / clear search |
-
-## Getting Started
-
-### Prerequisites
-
-- Windows 10 or later (WebView2 is built in)
-- [Rust toolchain](https://rustup.rs) (nightly or stable 1.77+)
-- [Node.js](https://nodejs.org) 22+
-
-### Install from source
-
-```bash
-git clone https://github.com/REDrighthand05/daily-app.git
-cd daily-app
-npm ci
-cd src-tauri
-cargo build
-cd ..
-npm run tauri dev
-```
-
-### Download prebuilt binaries
-
-> Prebuilt MSI/NSIS installers are available on the [Releases page](https://github.com/REDrighthand05/daily-app/releases).
-
-## Screenshots
-
-| Dark Theme | Light Theme |
-|-----------|-------------|
-| _screenshot coming soon_ | _screenshot coming soon_ |
-
-| Side Panel (right dock) | Settings |
-|------------------------|----------|
-| _screenshot coming soon_ | _screenshot coming soon_ |
-
-## Technology Stack
-
-| Layer | Technology |
-|-------|-----------|
-| **Desktop Shell** | [Tauri v2](https://v2.tauri.app) |
-| **Frontend** | [React 19](https://react.dev) + [TypeScript 6](https://www.typescriptlang.org) |
-| **State** | [Zustand](https://github.com/pmndrs/zustand) |
-| **Build** | [Vite 8](https://vitejs.dev) + [oxlint](https://oxc.rs) |
-| **Backend** | [Rust 2021](https://www.rust-lang.org) (tray-icon, global-shortcut, autostart) |
-| **Persistence** | Local JSON (settings) + SQLite (notes) |
-
-## Project Structure
-
-```
-daily/
-├── src/                          # React frontend (TypeScript)
-│   ├── components/
-│   │   ├── layout/               # Shell.tsx, TitleBar.tsx
-│   │   ├── notes/                # NoteEditor.tsx, NoteList.tsx, NoteSearch.tsx
-│   │   └── settings/             # SettingsPage.tsx
-│   ├── stores/                   # Zustand state (appStore.ts)
-│   ├── styles/                   # global.css, components.css
-│   ├── bridge/                   # Tauri IPC layer (ipc.ts)
-│   └── types/                    # TypeScript definitions
-├── src-tauri/src/                # Rust backend
-│   ├── lib.rs                    # Main entry: tray, shortcuts, window management
-│   ├── settings.rs               # Settings persistence
-│   ├── window.rs                 # Window position, opacity, attach/detach
-│   ├── commands/                 # IPC command handlers
-│   └── db/                       # Notes storage (SQLite)
-├── .github/workflows/
-│   ├── ci.yml                    # PR typecheck + lint + build
-│   ├── release.yml               # Tag-triggered Tauri build + Release
-│   └── changelog.yml             # Auto-changelog on PR merge
-└── CHANGELOG.md
-```
-
-## Development
-
-```bash
-# Start dev server with hot reload
-npm run tauri dev
-
-# Type-check only
-npx tsc -b
-
-# Lint
-npm run lint
-
-# Production build
-npm run tauri build
-```
-
-## Roadmap
-
-- [ ] Search improvements and note categories
-- [ ] Clipboard history module
-- [ ] Markdown rendering in notes
-- [ ] Customizable theme colours
-- [ ] Plugin system
-- [ ] Linux & macOS support
-
-## Contributing
-
-Contributions are welcome! Please open an issue first to discuss what you would like to change.
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feat/my-feature`
-3. Commit your changes: `git commit -m "feat: add my feature"`
-4. Push to the branch: `git push origin feat/my-feature`
-5. Open a Pull Request
-
-## License
-
-[MIT](LICENSE)
+> **⚠️ This project has been archived.**  
+> Daily was an experimental exploration into Tauri v2 desktop development with three concurrent UI framework implementations. The experiment has concluded. No further development, issues, or pull requests will be addressed.
 
 ---
 
-<p align="center">
-  <sub>Built with Tauri, React, Rust, and a keyboard shortcut.</sub>
-</p>
+## ❧ Sunset Notice
+
+Daily began as a question: _What if a desktop side-panel could be built with modern web tech, feel native, and ship in under 10 MB?_  
+
+Three forks, four months, 100+ commits, and 96 code-audit findings later, the question has been answered — and the experiment is complete.  
+
+The repositories remain publicly available for reference, learning, and forking. The final release (v1.2.1) contains all accumulated fixes, including security hardening, WCAG contrast compliance, Acrylic/glass effect corrections, and full test coverage.
+
+---
+
+## ✦ What It Does
+
+Daily provides a compact, always-available sidebar for quick notes, clipboard history, and global search — summoned by a configurable hotkey (`Alt+Space` by default).
+
+| Feature | Description |
+|---|---|
+| **Quick Notes** | Create, edit, archive, and search notes from any application |
+| **Clipboard History** | Auto-captures clipboard entries with star/filter/delete |
+| **Global Search** | ⌘/Ctrl+F to search across all notes and clipboard entries |
+| **System Tray** | Lives in the system tray; shown/hidden via hotkey |
+| **Acrylic Glass** | Windows 11 Acrylic effect via DWM (Phase 0.1 fix) |
+| **i18n Ready** | Internationalization framework in place (en-US default) |
+| **Autostart** | Optional launch on system startup |
+
+---
+
+## ✦ Tech Stack
+
+```
+frontend     React 19 · TypeScript · shadcn/ui · Tailwind v3 · Zustand · i18next
+desktop      Tauri v2 · Rust
+build        Vite · Rolldown · PostCSS · cargo tauri build
+test         Vitest · @testing-library/react · jsdom
+artifacts    MSI · NSIS · portable .exe
+```
+
+---
+
+## ✦ Architecture
+
+```
+┌─────────────────────────────────────────────┐
+│            shadcn/ui + Tailwind v3           │
+│   Shell · NoteEditor · ClipboardList · etc   │
+├─────────────────────────────────────────────┤
+│         Zustand Stores · IPC Bridge         │
+├─────────────────────────────────────────────┤
+│            Tauri v2 Rust Backend             │
+│  SQLite · Global Shortcut · System Tray     │
+└─────────────────────────────────────────────┘
+```
+
+---
+
+## ✦ Fork Comparison
+
+Daily was developed across **three UI framework forks** for comparison:
+
+| Fork | UI Framework | Status |
+|---|---|---|
+| **daily-shadcn** | [shadcn/ui](https://ui.shadcn.com) + Tailwind v3 | ✅ Final release |
+| [daily-mantine](https://github.com/REDrighthand05/daily-mantine) | [Mantine v7](https://mantine.dev) | ✅ Final release |
+| [daily-shadcn](https://github.com/REDrighthand05/daily-shadcn) | [shadcn/ui](https://ui.shadcn.com) + Tailwind v3 | ✅ Final release |
+
+All three share the same Tauri v2 + Rust backend. The UI layer alone differentiates them, making this an interesting case study in framework comparison for desktop applications.
+
+---
+
+## ✦ Final Release
+
+**v1.2.1** includes the complete Phase 0–1.3 refactoring:
+
+- ✅ Acrylic/glass effect fix (OS-level DWM, Phase 0.1)
+- ✅ Responsive layout with CSS Container Queries (Phase 0.2)
+- ✅ WCAG AA text contrast compliance (Phase 0.3)
+- ✅ Security hardening against path traversal & unvalidated IPC (Phase 1.1)
+- ✅ 10 Store tests, all passing (Phase 1.2)
+- ✅ One-click build scripts (Phase 1.3)
+- ✅ Full code audit: 96 findings, 6 Critical resolved
+
+**[⬇ Download the final release](https://github.com/REDrighthand05/daily-shadcn/releases/tag/v1.2.1)**
+
+---
+
+## ✦ Reflections
+
+> "The purpose of prototyping is not to build the product — it's to answer the questions that product development depends on."
+
+Daily taught us that Tauri v2 is production-ready for small desktop utilities, that Acrylic effects require careful coordination between DWM and CSS, and that HeroUI, Mantine, and shadcn each bring distinct tradeoffs to the desktop.
+
+The code is here. Fork it, learn from it, build something better.
+
+---
+
+## ✦ License
+
+[MIT](LICENSE) © 2026 REDrighthand05
