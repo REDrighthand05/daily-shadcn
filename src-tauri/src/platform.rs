@@ -1,3 +1,4 @@
+﻿#![allow(dead_code)]
 /// Platform detection and platform-specific values for Daily App.
 
 #[cfg(target_os = "macos")]

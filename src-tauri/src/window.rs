@@ -9,7 +9,7 @@ pub fn set_window_opacity(
     opacity: f64,
 ) -> Result<(), String> {
     let clamped = opacity.clamp(0.3, 1.0);
-    let alpha = (clamped * 255.0) as u8;
+    let _alpha = (clamped * 255.0) as u8;
     let _ = window.set_background_color(Some((0, 0, 0, 0).into()));
     {
         let mut settings = store.settings.lock().map_err(|e| e.to_string())?;
@@ -77,3 +77,4 @@ pub fn attach_window(window: WebviewWindow) -> Result<(), String> {
     let _ = window.set_skip_taskbar(true);
     Ok(())
 }
+
