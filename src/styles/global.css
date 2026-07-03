@@ -35,6 +35,13 @@ html, body, #root {
 }
 
 body {
-  background-color: hsl(var(--background));
+  background-color: transparent;
   color: hsl(var(--foreground));
 }
+
+#root {
+  background-color: hsl(0 0% 3% / var(--window-alpha, 0.65));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
