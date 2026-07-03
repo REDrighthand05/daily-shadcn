@@ -19,7 +19,7 @@ export default function ExportMenu({ note }: Props) {
     try {
       const path = await save({
         filters: [{ name: format === "markdown" ? "Markdown" : "Text", extensions: [ext] }],
-        defaultPath: ${defaultName}.,
+       defaultPath: `${defaultName}.${ext}`,
       });
       if (path) {
         await writeFile(path, note.content);

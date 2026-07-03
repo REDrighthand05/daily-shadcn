@@ -28,7 +28,7 @@ export default function ThemePicker({ accentColor, onChange }: Props) {
         {PRESETS.map((color) => (
           <button
             key={color}
-            className={w-6 h-6 rounded-full border-2 cursor-pointer transition-transform hover:scale-110 }
+            className="w-6 h-6 rounded-full border-2 cursor-pointer transition-transform hover:scale-110"
             style={{ backgroundColor: color }}
             onClick={() => handleChange(color)}
             title={color}

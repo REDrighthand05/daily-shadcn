@@ -7,8 +7,8 @@ const LANGUAGES = [
 ];
 
 export default function LanguagePicker() {
-  const { i18n } = useTranslation();
-  const { settings, updateSettings } = useAppStore();
+ const { i18n } = useTranslation();
+  const { updateSettings } = useAppStore();
 
   const handleChange = async (code: string) => {
     await i18n.changeLanguage(code);
@@ -20,7 +20,7 @@ export default function LanguagePicker() {
       {LANGUAGES.map((lang) => (
         <button
           key={lang.code}
-          className={lex flex-col items-center gap-1 px-3.5 py-1.5 rounded-lg border border-border text-[11px] text-muted-foreground transition-all hover:bg-accent }
+          className="flex flex-col items-center gap-1 px-3.5 py-1.5 rounded-lg border border-border text-[11px] text-muted-foreground transition-all hover:bg-accent"
           onClick={() => handleChange(lang.code)}
         >
           <span>{lang.label}</span>

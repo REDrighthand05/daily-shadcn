@@ -14,7 +14,7 @@ export default function TagChip({ tag, onRemove, onClick, size = "md" }: Props) 
 
   return (
     <span
-      className={${baseClass} }
+      className={`${baseClass} ${sizes[size]}`}
       style={tag.color ? { borderColor: tag.color, color: tag.color } : undefined}
       onClick={onClick}
     >
