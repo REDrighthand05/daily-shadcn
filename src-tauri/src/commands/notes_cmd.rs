@@ -9,6 +9,8 @@ pub fn get_notes(store: State<NotesStore>) -> Result<Vec<Note>, String> {
 
 #[tauri::command]
 pub fn save_note(store: State<NotesStore>, note: Note) -> Result<(), String> {
+    if note.id.is_empty() { return Err("note id cannot be empty".into()); }
+    if note.content.len() > 1_000_000 { return Err("note content exceeds 1MB limit".into()); }
     {
         let mut notes = store.notes.lock().map_err(|e| e.to_string())?;
         if let Some(existing) = notes.iter_mut().find(|n| n.id == note.id) {
@@ -81,6 +83,7 @@ pub fn purge_trash(store: State<NotesStore>) -> Result<(), String> {
     drop(notes);
     store.save()
 }
+
 #[tauri::command]
 pub fn move_note(store: State<NotesStore>, id: String, direction: String) -> Result<(), String> {
     let mut notes = store.notes.lock().map_err(|e| e.to_string())?;

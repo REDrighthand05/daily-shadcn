@@ -10,6 +10,7 @@ import ClipboardSearch from "./ClipboardSearch";
 import ClipboardDetail from "./ClipboardDetail";
 import { Trash2 } from "lucide-react";
 import { clipboardPoll } from "../../bridge/ipc";
+import { Button } from "@heroui/react";
 
 export default function ClipboardList() {
   const { t } = useTranslation();
@@ -33,17 +34,7 @@ export default function ClipboardList() {
     return () => { if (pollRef.current) clearInterval(pollRef.current); };
   }, []);
 
-  if (detailEntry) {
-    return (
-      <ClipboardDetail
-        entry={detailEntry}
-        onBack={() => setDetailEntry(null)}
-        onDelete={async (id) => { await deleteClipboardEntry(id); setDetailEntry(null); }}
-        onStar={(id, s) => starClipboardEntry(id, s)}
-      />
-    );
-  }
-
+  // Hooks MUST be before any conditional return (Rules of Hooks)
   const parentRef = useRef<HTMLDivElement>(null);
   const filtered = useMemo(() => clipboardSearchQuery
     ? clipboardEntries.filter((e) =>
@@ -58,17 +49,33 @@ export default function ClipboardList() {
     overscan: 5,
   });
 
+  // Now safe to conditionally return
+  if (detailEntry) {
+    return (
+      <ClipboardDetail
+        entry={detailEntry}
+        onBack={() => setDetailEntry(null)}
+        onDelete={async (id) => { await deleteClipboardEntry(id); setDetailEntry(null); }}
+        onStar={(id, s) => starClipboardEntry(id, s)}
+      />
+    );
+  }
+
   return (
     <div className="flex flex-col h-full">
-      <div className="flex items-center justify-between px-3 py-2 text-xs text-muted-foreground border-b border-border">
+      <div className="flex items-center justify-between px-3 py-1.5 text-xs text-foreground-400 border-b border-divider">
         <span className="text-[11px]">{filtered.length}</span>
-        <button
-          className="bg-transparent border border-border rounded-md px-2 py-0.5 text-[11px] cursor-pointer text-muted-foreground flex items-center gap-1 hover:bg-accent hover:text-destructive hover:border-destructive"
+        <Button
+          size="sm"
+          variant="ghost"
+          color="danger"
+          className="h-6 min-w-0 text-xs px-2 gap-1"
+          startContent={<Trash2 size={12} />}
           onClick={() => { if (confirm(t("clipboard.clearConfirm"))) clearClipboardHistory(); }}
           title="Clear history"
         >
-          <Trash2 size={12} /> Clear
-        </button>
+          Clear
+        </Button>
       </div>
       <ClipboardSearch />
       <div className="flex-1 overflow-y-auto" ref={parentRef}>
@@ -95,4 +102,3 @@ export default function ClipboardList() {
     </div>
   );
 }
-

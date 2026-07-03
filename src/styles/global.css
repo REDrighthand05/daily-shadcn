@@ -2,14 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ========================================
-   Phase 0.1 — Acrylic 双层背景策略
-   ========================================
-   true Acrylic 由 OS (DWM) 通过 tauri.conf.json 的 windowEffects 控制。
-   CSS backdrop-filter 仅作为软件层降级。
-   set_background_color() 已被删除 — 它阻塞 OS 层 Acrylic。
-   ======================================== */
-
 html, body, #root {
   height: 100%;
   width: 100%;
@@ -17,109 +9,23 @@ html, body, #root {
   user-select: none;
 }
 
+/*
+ * Acrylic 策略:
+ * DWM (tauri.conf.json) 提供 OS 级 Acrylic 效果。
+ * CSS backdrop-filter 提供 DOM 级模糊降级。
+ * #root 使用低不透明度背景，让 DWM Acrylic 穿透。
+ * text-shadow 保障文字可读性，而非实色/半透明覆盖层。
+ */
 #root {
-  background-color: hsl(240 20% 4% / var(--window-alpha, 0.7));
+  background-color: hsl(240 20% 4% / 0.30);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
 
-/* 安全色层叠加: 确保深色壁纸上文字对比度 >= 4.5:1 */
-#root::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.25);
-  pointer-events: none;
-  z-index: -1;
+/* 用 text-shadow 保障对比度，替代覆盖层 */
+#root, .notes-body, .prose {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
-
-/* ========================================
-   Phase 0.3 — WCAG AA 对比度修复
-   ======================================== */
-
-:root {
-  --text-primary: #e8e8e8;      /* 6.2:1 — 保持 */
-  --text-secondary: #c0c0c0;    /* 5.2:1 — 修复 (原 #a0a0a0 仅 3.8:1) */
-  --text-muted: #888888;         /* 3.8:1 — 仅用于装饰/非关键标签 */
-  --border-color: rgba(255, 255, 255, 0.1);
-  --surface-elevated-bg: hsla(240 20% 4% / calc(var(--window-alpha, 0.7) + 0.15));
-  --surface-dialog-bg: hsla(240 20% 4% / calc(var(--window-alpha, 0.7) + 0.3));
-}
-
-.surface-elevated {
-  background-color: var(--surface-elevated-bg);
-}
-
-.surface-dialog {
-  background-color: var(--surface-dialog-bg);
-}
-
-/* ========================================
-   Phase 0.2 — 响应式布局 (Container Queries)
-   ======================================== */
-
-.notes-container {
-  container-type: inline-size;
-  container-name: notes;
-}
-
-/* 正常宽度: NoteList + NoteEditor 并排 */
-.notes-body {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  overflow: hidden;
-}
-
-/* 窄窗口 (< 500px): 堆叠 */
-@container notes (max-width: 500px) {
-  .notes-body {
-    flex-direction: column;
-  }
-  .notes-body > :first-child {
-    width: 100%;
-    max-height: 30vh;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-  }
-  .notes-body > :last-child {
-    width: 100%;
-    flex: 1;
-  }
-}
-
-/* Tab bar 小屏优化: 隐藏文字标签，仅显示图标 */
-@media (max-width: 480px) {
-  .tab-label {
-    display: none;
-  }
-  .tab-btn {
-    min-width: 0;
-    padding: 0 4px;
-  }
-}
-
-/* Search overlay 全宽适配 */
-@media (max-width: 400px) {
-  .search-overlay-inner {
-    width: 100vw !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
-  }
-}
-
-/* 设置页响应式: 宽屏两列 */
-@media (min-width: 700px) {
-  .settings-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-}
-
-/* ========================================
-   滚动条
-   ======================================== */
 
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
