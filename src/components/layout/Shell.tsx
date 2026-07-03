@@ -49,9 +49,9 @@ export default function Shell() {
       <React.Suspense fallback={null}><SearchOverlay /></React.Suspense>
       <TitleBar />
       {activeTab === "notes" && (
-        <div className="flex flex-col flex-1 overflow-hidden">
+        <div className="notes-container flex flex-col flex-1 overflow-hidden">
           <NoteSearch />
-          <div className="flex flex-1 overflow-hidden">
+          <div className="notes-body">
             <NoteList />
             <NoteEditor />
           </div>
@@ -64,19 +64,19 @@ export default function Shell() {
           className={cn("flex-1 flex items-center justify-center gap-1 border-t-2 border-transparent px-2 pb-2 pt-1.5 text-[11px] cursor-pointer text-muted-foreground transition-colors hover:text-foreground hover:bg-accent", activeTab === "notes" && "text-primary border-t-primary")}
           onClick={() => setActiveTab("notes")}
         >
-          <FileText size={14} /> {t("tabs.notes")}
+          <FileText size={14} /> <span className="tab-label">{t("tabs.notes")}</span>
         </button>
         <button
           className={cn("flex-1 flex items-center justify-center gap-1 border-t-2 border-transparent px-2 pb-2 pt-1.5 text-[11px] cursor-pointer text-muted-foreground transition-colors hover:text-foreground hover:bg-accent", activeTab === "clipboard" && "text-primary border-t-primary")}
           onClick={() => setActiveTab("clipboard")}
         >
-          <Clipboard size={14} /> {t("tabs.clipboard")}
+          <Clipboard size={14} /> <span className="tab-label">{t("tabs.clipboard")}</span>
         </button>
         <button
           className={cn("flex-1 flex items-center justify-center gap-1 border-t-2 border-transparent px-2 pb-2 pt-1.5 text-[11px] cursor-pointer text-muted-foreground transition-colors hover:text-foreground hover:bg-accent", activeTab === "settings" && "text-primary border-t-primary")}
           onClick={() => setActiveTab("settings")}
         >
-          <Settings size={14} /> {t("tabs.settings")}
+          <Settings size={14} /> <span className="tab-label">{t("tabs.settings")}</span>
         </button>
       </div>
     </div>
